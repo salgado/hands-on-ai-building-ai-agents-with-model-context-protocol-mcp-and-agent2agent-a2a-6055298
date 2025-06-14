@@ -38,7 +38,7 @@ class TimeoffAgentExecutor(AgentExecutor):
                         user=user_input.get("user"), prompt=user_input.get("prompt"))
         
         print("Result received: ", result)
-        event_queue.enqueue_event(new_agent_text_message(result))
+        await event_queue.enqueue_event(new_agent_text_message(result))
 
     @override
     async def cancel(
