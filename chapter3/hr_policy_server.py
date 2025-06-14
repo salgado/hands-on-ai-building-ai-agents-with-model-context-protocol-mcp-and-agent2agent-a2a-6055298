@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 from fastmcp import FastMCP
 
-from langchain_community.vectorstores import Chroma
+from langchain_core.vectorstores import InMemoryVectorStore
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_huggingface import HuggingFaceEmbeddings
 
@@ -29,8 +29,8 @@ policy_embeddings = HuggingFaceEmbeddings(
     model_name="sentence-transformers/all-MiniLM-L6-v2")
 
 # Create Chroma vector store
-policy_vector_store = Chroma.from_documents(
-    policy_documents, policy_embeddings, persist_directory="chroma_db")
+policy_vector_store = InMemoryVectorStore.from_documents(
+    policy_documents, policy_embeddings)
 
 #-----------------------------------------------------------------------
 #Setup the MCP tool to query for policies, given a user query string
